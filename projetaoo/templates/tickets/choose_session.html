@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessões do espetáculo "{{ event[1] }}"</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <nav class="bg-indigo-700 shadow-md p-4 mb-8">
+        <div class="max-w-6xl mx-auto flex justify-between items-center text-white">
+            <h1 class="text-2xl font-bold tracking-tight">EventFlow</h1>
+            <div class="space-x-4">
+                <a href="/" class="hover:text-indigo-200">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-end mb-6">
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-900">Sessões do espetáculo "{{ event[1] }}"</h2>
+                <p class="text-gray-600">Gestão das sessões do espetáculo "{{ event[1] }}".</p>
+            </div>
+            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase">
+                {{ sessions|length }} Sessões previstas para este evento
+            </span>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 border-b border-gray-200">
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">Data e Hora</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">Preço base</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for s in sessions %}
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 text-sm text-gray-500 font-mono">#{{ s[0] }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{ s[2] }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{ s[3] }}</td>
+                            <td class="px-6 py-4 text-center">
+                                <div class="flex justify-center  space-x-2">
+                                    {% if event[6] %}
+                                    <a href="/tickets/{{ s[0] }}/buy_from_seat_map" title="Comprar Bilhetes" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2 9V6.2C2 5.0799 2 4.51984 2.21799 4.09202C2.40973 3.71569 2.71569 3.40973 3.09202 3.21799C3.51984 3 4.0799 3 5.2 3H18.8C19.9201 3 20.4802 3 20.908 3.21799C21.2843 3.40973 21.5903 3.71569 21.782 4.09202C22 4.51984 22 5.0799 22 6.2V9C20.8954 9 20 9.89543 20 11C20 12.1046 20.8954 13 22 13V17.8C22 18.9201 22 19.4802 21.782 19.908C21.5903 20.2843 21.2843 20.5903 20.908 20.782C20.4802 21 19.9201 21 18.8 21H5.2C4.0799 21 3.51984 21 3.09202 20.782C2.71569 20.5903 2.40973 20.2843 2.21799 19.908C2 19.4802 2 18.9201 2 17.8V13C3.10457 13 4 12.1046 4 11C4 9.89543 3.10457 9 2 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M9 3V21M15 3V21" stroke="currentColor" stroke-width="2" stroke-dasharray="2 4"/>
+                                        </svg>
+                                    </a>
+                                    {% else %}
+                                    <a href="/tickets/{{ s[0] }}/buy_from_capacity" title="Comprar Bilhetes" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2 9V6.2C2 5.0799 2 4.51984 2.21799 4.09202C2.40973 3.71569 2.71569 3.40973 3.09202 3.21799C3.51984 3 4.0799 3 5.2 3H18.8C19.9201 3 20.4802 3 20.908 3.21799C21.2843 3.40973 21.5903 3.71569 21.782 4.09202C22 4.51984 22 5.0799 22 6.2V9C20.8954 9 20 9.89543 20 11C20 12.1046 20.8954 13 22 13V17.8C22 18.9201 22 19.4802 21.782 19.908C21.5903 20.2843 21.2843 20.5903 20.908 20.782C20.4802 21 19.9201 21 18.8 21H5.2C4.0799 21 3.51984 21 3.09202 20.782C2.71569 20.5903 2.40973 20.2843 2.21799 19.908C2 19.4802 2 18.9201 2 17.8V13C3.10457 13 4 12.1046 4 11C4 9.89543 3.10457 9 2 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M9 3V21M15 3V21" stroke="currentColor" stroke-width="2" stroke-dasharray="2 4"/>
+                                        </svg>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

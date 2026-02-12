@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Novo Evento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Novo Evento</h2>
+        <form action="/events/create" method="POST" class="space-y-6 bg-white p-6 rounded-lg shadow">
+    
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Título do Evento</label>
+                <input type="text" name="title" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Descrição</label>
+                <textarea name="description" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Tipo de Evento</label>
+                    <select name="id_event_type" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        {% for et in event_types %}
+                        <option value="{{ et[0] }}">{{ et[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Duração (minutos)</label>
+                    <input type="number" name="duration" placeholder="Ex: 60" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Sala</label>
+                <select name="id_place" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        {% for p in places %}
+                        <option value="{{ p[0] }}">{{ p[1] }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                <span class="flex flex-col">
+                    <span class="text-sm font-medium text-gray-700">Assentos Reservados</span>
+                    <span class="text-xs text-gray-500">Ative se o evento tiver lugares marcados.</span>
+                </span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" name="reserved_seats" value="1" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                </label>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Entidade Organizadora</label>
+                <select name="id_organizer" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        {% for o in organizers %}
+                        <option value="{{ o[0] }}">{{ o[1] }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="/events/" class="w-full bg-gray-600 text-white py-2 px-4 text-center rounded-md hover:bg-gray-700 font-bold transition">
+                    Cancelar
+                </a>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 text-center rounded-md hover:bg-indigo-700 font-bold transition">
+                    Gravar Evento
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

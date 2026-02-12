@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Salas de Espetáculos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <nav class="bg-indigo-700 shadow-md p-4 mb-8">
+        <div class="max-w-6xl mx-auto flex justify-between items-center text-white">
+            <h1 class="text-2xl font-bold tracking-tight">EventFlow</h1>
+            <div class="space-x-4">
+                <a href="/" class="hover:text-indigo-200">Home</a>
+                <a href="/users/create" class="bg-white text-indigo-700 px-4 py-2 rounded-lg font-bold hover:bg-indigo-50 transition">
+                    + Novo Utilizador
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-end mb-6">
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-900">Utilizadores</h2>
+                <p class="text-gray-600">Gestão de utilizadores.</p>
+            </div>
+            <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase">
+                {{ users|length }} Utilizadores na base de dados
+            </span>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden border border-gray-200">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 border-b border-gray-200">
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">Nome</th>    
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">Telemóvel</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">NIF</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider">Tipo</th>
+                            <th class="px-6 py-4 text-sm font-semibold text-gray-700 uppercase tracking-wider text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for u in users %}
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 text-sm text-gray-500 font-mono">#{{ u[0] }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{ u[1] }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{ u[2] }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{ u[3] }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{ u[4] }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900">{{ u[6] }}</td>
+                            <td class="px-6 py-4 text-center">
+                                <div class="flex justify-center space-x-2">
+                                    <a href="/users/details/{{ u[0] }}" title="Ver Detalhes" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    </a>
+                                    <a href="/users/edit/{{ u[0] }}" title="Editar" class="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                    </a>
+                                    <form action="/users/delete/{{ u[0] }}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar o utilizador {{ u[1] }}?');">
+                                        <button type="submit" title="Excluir" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
